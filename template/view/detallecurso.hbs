@@ -1,0 +1,37 @@
+{{>cabecera}}
+{{#with curso}}
+<div class="p-3 mb-2 bg-dark bg-gradient text-white">
+<form action="/crearcurso" method="post" class="row g-3">
+  <div class="col-md-6">
+    <label for="nombre" class="form-label">Este es el nombre del curso:</label>
+    <input type="text" class="form-control" id="nombre" name="nombre" required value="{{nombre}}" readonly>
+  </div>
+  <div class="col-md-6">
+    <label for="descripcion" class="form-label">Esta es la descripción del curso:</label>
+    <input type="text" class="form-control" id="descripcion" name="descripcion" required value="{{descripcion}}" readonly>
+  </div>
+  <div class="col-6">
+    <label for="id" class="form-label">Este es el id del curso:</label>
+    <input type="number" class="form-control" id="id" name="id" required value= "{{id}}" readonly>
+  </div>
+  <div class="col-6">
+    <label for="valor" class="form-label">Este es el valor del curso 2</label>
+    <input type="number" class="form-control" id="valor" name="id" required value="{{valor}}" readonly>
+  </div>
+  <div class="col-md-6">
+    <label for="intensidadHoraria" class="form-label">Esta es la intensidad Horaria del curso:</label>
+    <input type="number" class="form-control" id="intensidadHoraria" name="intensidadHoraria" required value="{{intensidadHoraria}}" readonly>
+  </div>
+  <div class="col-md-4">
+    <label for="inputState" class="form-label">Modalidad</label>
+    <select id="inputState" class="form-select" readonly>
+      <option selected>Choose...</option>
+      <option>...</option>
+    </select>
+  </div>
+ 
+
+</form>
+{{/with}}
+</div>
+{{>pie}}

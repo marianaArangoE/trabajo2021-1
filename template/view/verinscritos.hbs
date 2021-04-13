@@ -1,0 +1,26 @@
+{{>cabecera}}
+<table class="table table-dark table-striped">
+
+<tr> 
+    <th> nombre </th> 
+    <th> documento </th> 
+    <th> correo </th> 
+    <th> telefono </th> 
+   <th> accion</th>
+
+</tr>
+{{#each listaest}}
+<tr>
+  <td>{{this.nombreEst}}</td>
+  <td>{{this.documento}}</td>
+  <td>{{this.correo}}</td>
+  <td>{{this.telefono}}</td>
+   <td> 
+        <a class="btn btn-primary" href="/eliminar/{{this.documento}}">eliminar</a>
+ 
+      </td>
+</tr>
+
+{{/each}}
+</table>
+{{>pie}}

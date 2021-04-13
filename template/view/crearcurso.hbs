@@ -1,0 +1,38 @@
+{{>cabecera}}
+<div class="p-3 mb-2 bg-dark bg-gradient text-white">
+    <h1>Crear un curso nuevo</h1>
+    <form action="/crearcurso" method="post" class="row g-3">
+        <div class="col-md-6">
+            <label for="nombre" class="form-label">Ingrese el nombre del curso: </label>
+            <input type="text" class="form-control" id="nombre" name="nombre"  required>
+        </div>
+        <div class="col-md-6">
+            <label for="descripcion" class="form-label">Ingrese la descripcion del curso:</label>
+            <input type="text" class="form-control" id="descripcion"  name="descripcion"required>
+        </div>
+        <div class="col-md-6">
+            <label for="id" class="form-label">Ingrese el ID del curso:</label>
+            <input type="number" class="form-control" id="id"  name="id"required>
+        </div>
+        <div class="col-md-6">
+            <label for="valor" class="form-label">Ingrese el valor del curso:</label>
+            <input type="number" class="form-control" id="valor"  name="valor" required>
+        </div>
+        <div class="col-md-6">
+            <label for="intensidadHoraria" class="form-label">Ingrese la intensidad horaria</label>
+            <input type="number" class="form-control" id="intensidadHoraria" name="intensidadHoraria" required>
+        </div>
+        <div class="col-md-4">
+            <label for="inputState" class="form-label">Modalidad</label>
+            <select id="inputState" class="form-select">
+                <option selected> Seleccione</option>
+                <option>presencial</option>
+                <option>virtual</option>
+            </select>
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button type="crearcurso" class="btn btn-warning">Crear curso </button>
+        </div>
+    </form>
+</div>
+{{>pie}}

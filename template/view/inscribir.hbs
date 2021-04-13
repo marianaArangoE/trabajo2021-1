@@ -1,0 +1,25 @@
+{{>cabecera}}
+<div class="p-3 mb-2 bg-dark bg-gradient text-white">
+<form action="/crearest" method="post" class="row g-3">
+  <div class="col-md-6">
+    <label for="nombreEst" class="form-label">Ingrese el nombre del estudiante:</label>
+    <input type="text" class="form-control" id="nombreEst" required name="nombreEst">
+  </div>
+  <div class="col-md-6">
+    <label for="correo" class="form-label">Ingrese el correo del estudiante:</label>
+    <input type="text" class="form-control" id="correo" required name="correo">
+  </div>
+  <div class="col-12">
+    <label for="doc" class="form-label">Ingrese el documento:</label>
+    <input type="text" class="form-control" id="doc" required name="doc">
+  </div>
+  <div class="col-12">
+    <label for="tel" class="form-label"> Ingrese el telefono:</label>
+    <input type="number" class="form-control" id="tel" required name="tel">
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Ingresar estudiante</button>
+  </div>
+</form>
+</div>
+{{>pie}}
