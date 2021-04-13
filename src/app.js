@@ -80,3 +80,5 @@ app.get("/eliminar/:doc",(req,res)=>{
     res.redirect("/verinscritos")
 })
 const port = process.env.PORT || 3000
+
+app.listen(port)
