@@ -1,37 +1,81 @@
 {{>cabecera}}
 {{#with curso}}
-<div class="p-3 mb-2 bg-dark bg-gradient text-white">
-<form action="/crearcurso" method="post" class="row g-3">
-  <div class="col-md-6">
-    <label for="nombre" class="form-label">Este es el nombre del curso:</label>
-    <input type="text" class="form-control" id="nombre" name="nombre" required value="{{nombre}}" readonly>
-  </div>
-  <div class="col-md-6">
-    <label for="descripcion" class="form-label">Esta es la descripción del curso:</label>
-    <input type="text" class="form-control" id="descripcion" name="descripcion" required value="{{descripcion}}" readonly>
-  </div>
-  <div class="col-6">
-    <label for="id" class="form-label">Este es el id del curso:</label>
-    <input type="number" class="form-control" id="id" name="id" required value= "{{id}}" readonly>
-  </div>
-  <div class="col-6">
-    <label for="valor" class="form-label">Este es el valor del curso 2</label>
-    <input type="number" class="form-control" id="valor" name="id" required value="{{valor}}" readonly>
-  </div>
-  <div class="col-md-6">
-    <label for="intensidadHoraria" class="form-label">Esta es la intensidad Horaria del curso:</label>
-    <input type="number" class="form-control" id="intensidadHoraria" name="intensidadHoraria" required value="{{intensidadHoraria}}" readonly>
-  </div>
-  <div class="col-md-4">
-    <label for="inputState" class="form-label">Modalidad</label>
-    <select id="inputState" class="form-select" readonly>
-      <option selected>Choose...</option>
-      <option>...</option>
-    </select>
-  </div>
- 
+<div class="p-3 mb-2 bg-ligth bg-gradient text-black">
+  <form action="/crearcurso" method="post" class="row g-3">
+    <div class="col-md-6">
+      <label for="nombre" class="form-label">Este es el nombre del curso:</label>
+      <input type="text" class="form-control" id="nombre" name="nombre" required value="{{nombre}}" readonly>
+    </div>
+    <div class="col-md-6">
+      <label for="descripcion" class="form-label">Esta es la descripción del curso:</label>
+      <input type="text" class="form-control" id="descripcion" name="descripcion" required value="{{descripcion}}"
+        readonly>
+    </div>
+    <div class="col-6">
+      <label for="id" class="form-label">Este es el id del curso:</label>
+      <input type="number" class="form-control" id="id" name="id" required value="{{id}}" readonly>
+    </div>
+    <div class="col-6">
+      <label for="valor" class="form-label">Este es el valor del curso 2</label>
+      <input type="number" class="form-control" id="valor" name="id" required value="{{valor}}" readonly>
+    </div>
+    <div class="col-md-6">
+      <label for="intensidadHoraria" class="form-label">Esta es la intensidad Horaria del curso:</label>
+      <input type="number" class="form-control" id="intensidadHoraria" name="intensidadHoraria" required
+        value="{{intensidadHoraria}}" readonly>
+    </div>
+    <div class="col-md-4">
+      <label for="inputState" class="form-label">Modalidad</label>
+      <input type="text" class="form-control" id="modalidad" name="modalidad" required value="{{modalidad}}" readonly>
 
-</form>
-{{/with}}
+    </div>
+
+
+  </form>
+  {{/with}}
+
+  <form action="/matricular/{{curso.id}}" method="post" class="row g-3">
+    <div class="col-md-4">
+      <label for="inputState" class="form-label">estudiante</label>
+      <select id="inputState" class="form-select" name="estudiante">
+        
+        <option selected> Seleccione el estudiante</option>
+        {{#each estudiantes}}
+        <option value="{{this.documento}}"> {{this.nombreEst}}</option>
+
+
+        {{/each}}
+      </select>
+    </div>
+    <div class="d-grid gap-2 col-4 mx-auto">
+            <button type="submit" class="btn btn-primary">matricular </button>
+        </div>
+  </form>
+  <div>
+    <table class="table table-litgh table-striped">
+      <tr>
+        <th> nombre </th>
+        <th> documento </th>
+        <th> correo </th>
+        <th> telefono </th>
+        <th> accion</th>
+
+      </tr>
+      {{#each curso.estudiantes}}
+      <tr>
+        <td>{{this.nombreEst}}</td>
+        <td>{{this.documento}}</td>
+        <td>{{this.correo}}</td>
+        <td>{{this.telefono}}</td>
+        <td>
+           <div class="d-grid gap-2 col-4 mx-auto">
+            <a href="/expulsar/{{@root.curso.id}}/{{this.documento}}" class="btn btn-primary">expulsar </a>
+        </div>
+        </td>
+      </tr>
+      {{/each}}
+    </table>
+
+  </div>
 </div>
 {{>pie}}

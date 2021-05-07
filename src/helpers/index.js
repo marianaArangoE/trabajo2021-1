@@ -12,7 +12,8 @@ const crear = (curso) => {
         modalidad: curso.modalidad,
         valor: curso.valor,
         intensidadHoraria: curso.intensidadHoraria,
-        disponibilidad : true
+        disponibilidad: true,
+        estudiantes: []
     }
     let duplicado = listacursos.find(nom => nom.id == curso.id)
     if (!duplicado) {
@@ -20,7 +21,7 @@ const crear = (curso) => {
         guardar()
     }
     else {
-        console.log("ya existe un curso con este nombre")
+        throw new Error ("No pueden haber dos id iguales")
     }
 }
 
@@ -28,17 +29,17 @@ const listarc = () => {
     try {
         listacursos = fs.readFileSync(datos + "/listacur.json")
         listacursos = JSON.parse(listacursos)
-        .map(curso=>({
-            ...curso,
-            disponibilidad: curso.disponibilidad ? "disponible" : "no disponible"
-        }))
-        
+            .map(curso => ({
+                ...curso,
+                disponibilidad: curso.disponibilidad ? "disponible" : "no disponible"
+            }))
+
     }
-  
+
     catch (err) {
         listacursos = []
     }
-    return listacursos 
+    return listacursos
 }
 
 
@@ -65,13 +66,15 @@ const crearest = (estudiante) => {
         guardarest()
     }
     else {
-        console.log("ya existe un estudiante con este nombre")
+        throw new Error ("ya existe un estudiante con este nombre")
+  
     }
 }
 
 const listaest = () => {
     try {
-        listaestudiantes = require(datos + "/listaest.json")
+        listaestudiantes = fs.readFileSync(datos + "/listaest.json")
+        listaestudiantes = JSON.parse(listaestudiantes)
     }
     catch (err) {
         listaestudiantes = []
@@ -91,7 +94,7 @@ const eliminar = (doc) => {
     listaest()
     let nuevo = listaestudiantes.filter(est => est.documento != doc)
     if (nuevo.length == listaestudiantes.length) {
-        console.log("no hay ningun estudiante con este nombre")
+        throw new Error("no hay ningun estudiante con este nombre")
     } else {
         listaestudiantes = nuevo
         guardarest()
@@ -99,18 +102,53 @@ const eliminar = (doc) => {
 }
 
 
-const buscar = (id) =>{
-    let lista= listarc()
-   let encontrado = lista.find(curso => curso.id == id)
-   return encontrado
-    
-} 
+const buscar = (id) => {
+    let lista = listarc()
+    let encontrado = lista.find(curso => curso.id == id)
+    let estudiantes = listaest()
+    encontrado.estudiantes = encontrado.estudiantes.map(doc => {
+        return estudiantes.find(estudiante => doc == estudiante.documento)
+    })
+    return encontrado
+
+}
+const matricular = (id, documento) => {
+    let cursos = listarc()
+    listacursos = cursos.map(curso => {
+        if (curso.id == id) {
+            if (!curso.estudiantes.find(estudiante => estudiante == documento)) {
+                curso.estudiantes.push(documento)
+
+            } else {
+                throw new Error ("no existe un est con ese doc")
+
+            }
+
+        }
+        return curso
+    })
+    guardar()
+}
+const eliminarest = (id, documento) => {
+    let cursos = listarc()
+    listacursos = cursos.map(curso => {
+        if (curso.id == id) {
+            curso.estudiantes = curso.estudiantes.filter(doc => doc != documento)
+
+        }
+        return curso
+    })
+    guardar()
+
+}
 module.exports = {
     crear,
     crearest,
     eliminar,
     listaest,
     listarc,
-    buscar
+    buscar,
+    matricular,
+    eliminarest
 
 }

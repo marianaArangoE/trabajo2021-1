@@ -1,5 +1,10 @@
 {{>cabecera}}
-<div class="p-3 mb-2 bg-dark bg-gradient text-white">
+<div class="p-3 mb-2 bg-litgh bg-gradient text-black">
+    {{#if mensajeError}}
+    <div class="alert alert-danger" role="alert">
+{{mensajeError}}
+</div>
+ {{/if}}
 <form action="/crearest" method="post" class="row g-3">
   <div class="col-md-6">
     <label for="nombreEst" class="form-label">Ingrese el nombre del estudiante:</label>

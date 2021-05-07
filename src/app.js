@@ -39,6 +39,7 @@ app.get("/inscribir", function (req, res) {
 
     res.render("inscribir", {
         titulo: "Inscribir",
+        cursos: funciones.listarc()
 
     })
 })
@@ -51,18 +52,34 @@ app.get("/verinscritos", function (req, res) {
     })
 })
 app.post("/crearcurso", (req, res) => {
-    funciones.crear(req.body)
+    let mensajeError
+    try {
+        funciones.crear(req.body)
+    }
+    catch (error) {
+        mensajeError = error.message
+    }
     res.render("crearcurso", {
-      curso:{nombre: " "}
+        curso: { nombre: " " },
+        mensajeError
     })
 })
 app.post("/crearest", (req, res) => {
-    funciones.crearest(req.body)
+    let mensajeError
+    try {
+        funciones.crearest(req.body)
+    }
+    catch (error) {
+        mensajeError = error.message
+
+    }
     res.render("inscribir", {
         nombreEst: req.body.nombreEst,
         correo: req.body.correo,
         telefono: parseInt(req.body.telefono),
         doc: parseInt(req.body.doc),
+        mensajeError
+
 
     })
 })
@@ -70,14 +87,32 @@ app.get("/detallecurso/:id", (req, res) => {
     const curso = funciones.buscar(req.params.id)
     console.log(req.params.id)
     res.render("detallecurso", {
-        curso
+        curso,
+        estudiantes: funciones.listaest()
     })
 })
-app.get("/eliminar/:doc",(req,res)=>{
+app.get("/cerrar/:id", (req, res) => {
+
+
+    res.render("detallecurso",)
+})
+
+app.get("/eliminar/:doc", (req, res) => {
     funciones.eliminar(req.params.doc)
     console.log(req.params.doc)
-
     res.redirect("/verinscritos")
+})
+
+app.post("/matricular/:id", (req, res) => {
+    funciones.matricular(req.params.id, req.body.estudiante)
+    console.log(req.body)
+    res.redirect("/detallecurso/" + req.params.id)
+})
+app.get("/expulsar/:id/:doc", (req, res) => {
+    funciones.eliminarest(req.params.id, req.params.doc)
+    console.log(req.body)
+    res.redirect("/detallecurso/" + req.params.id)
+
 })
 const port = process.env.PORT || 3000
 

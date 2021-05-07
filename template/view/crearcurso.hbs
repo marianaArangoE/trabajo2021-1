@@ -1,6 +1,12 @@
 {{>cabecera}}
-<div class="p-3 mb-2 bg-dark bg-gradient text-white">
+<div class="p-3 mb-2 bg-ligth bg-gradient text-black">
     <h1>Crear un curso nuevo</h1>
+    {{#if mensajeError}}
+    <div class="alert alert-danger" role="alert">
+{{mensajeError}}
+</div>
+   
+    {{/if}}
     <form action="/crearcurso" method="post" class="row g-3">
         <div class="col-md-6">
             <label for="nombre" class="form-label">Ingrese el nombre del curso: </label>
@@ -24,15 +30,16 @@
         </div>
         <div class="col-md-4">
             <label for="inputState" class="form-label">Modalidad</label>
-            <select id="inputState" class="form-select">
+            <select id="inputState" class="form-select" name="modalidad">
                 <option selected> Seleccione</option>
                 <option>presencial</option>
                 <option>virtual</option>
             </select>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
-            <button type="crearcurso" class="btn btn-warning">Crear curso </button>
+            <button type="crearcurso" class="btn btn-primary">Crear curso </button>
         </div>
     </form>
+    
 </div>
 {{>pie}}
