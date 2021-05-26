@@ -5,7 +5,8 @@ const body = require("body-parser")
 const bodyParser = require('body-parser')
 const funciones = require("./helpers/index")
 const app = express()
-
+const mongoose = require('mongoose')
+require('./config');
 app.use(express.static("public"))
 app.engine("hbs", hbs.express4({
     partialsDir: path.join(__dirname, "../template/patrials")
@@ -114,6 +115,16 @@ app.get("/expulsar/:id/:doc", (req, res) => {
     res.redirect("/detallecurso/" + req.params.id)
 
 })
-const port = process.env.PORT || 3000
+mongoose.connect(process.env.URLDB, { useNewUrlParser: true, useUnifiedTopology: true }, (err, resultado) => {
+    if (err) {
+        console.log("error al conectar")
+    }
+    console.log(" se ha conectado a la base de datos")
+});
 
-app.listen(port)
+
+app.listen(process.env.PORT, () => {
+    console.log('Servidor en el puerto' + process.env.PORT)
+})
+
+module.exports = app
